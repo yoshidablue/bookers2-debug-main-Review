@@ -20,6 +20,22 @@
           <%= render "favorites/btn", book: book %>
         </td>
         <td>コメント数：<%= book.book_comments.count %></td>
+        <td>
+          <div id="star-rate<%= book.id %>">
+            <script>
+              $('#star-rate<%= book.id %>').empty();  // 星の数が増えるのを防ぐ。
+              $('#star-rate<%= book.id %>').raty({
+                size:      36,
+                starHalf:  '<%= asset_path('star-half.png') %>',
+                starOff:   '<%= asset_path('star-off.png') %>',
+                starOn:    '<%= asset_path('star-on.png') %>',
+                half:      true,
+                readOnly:  true,  // 読み取り専用で編集できないようにする。
+                score:     <%= book.star %>,
+              });
+            </script>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
