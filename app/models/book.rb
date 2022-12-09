@@ -10,6 +10,11 @@ class Book < ApplicationRecord
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
 
+  # descは昇順
+  # scope :yyyはcontrollerのyyyと繋がっている。
+  scope :latest,     -> {order(created_at: :desc)}
+  scope :star_count, -> {order(star: :desc)}
+
   def favorited_by?(user)
     # Favoriteモデルのuser_idカラムに引数で設定するuserのidが存在するかどうかを判別し、true,falseで返す。
     # .exists?は、存在の判別をするメソッド。
